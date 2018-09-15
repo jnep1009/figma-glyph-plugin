@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import * as ns from 'node-sketch';
+import * as ns from './node-sketch.js';
 
 
 class App extends Component {
@@ -24,7 +24,7 @@ class App extends Component {
             let reader = new FileReader();
             // sketch read file
             ns.read(uploadedFile).then(sketch => {
-                console.log(sketch.pages);
+                console.log(sketch.pages[0]);
             })
         }
     };
