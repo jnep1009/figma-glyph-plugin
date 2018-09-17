@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const lib = require('../node-sketch.js');
-
+var file_saver = require('file-saver');
 /**
  * This class represents the sketch file and all this content.
  *
@@ -97,26 +97,29 @@ class Sketch {
      * @return {this}
      */
     save(file) {
+        console.log(this.repo, file);
         this.queue.then(() => {
             this._saveJson();
-
-            return new Promise((resolve, reject) => {
-                this.repo
-                    .generateNodeStream({
-                        type: 'nodebuffer',
-                        streamFiles: true,
-                        compression: 'DEFLATE'
-                    })
-                    .pipe(fs.createWriteStream(file))
-                    .on('finish', () => {
-                        resolve(file);
-                    })
-                    .on('error', err => {
-                        reject(err);
-                    });
-            });
+            this.repo.generateAsync({type: "blob"})
+                .then(function (blob) {
+                    file_saver.saveAs(blob, file);
+                });
+            //return new Promise((resolve, reject) => {
+            //    this.repo
+            //        .generateNodeStream({
+            //            type: 'nodebuffer',
+            //            streamFiles: true,
+            //            compression: 'DEFLATE'
+            //        })
+            //        .pipe(fs.createWriteStream(file))
+            //        .on('finish', () => {
+            //            resolve(file);
+            //        })
+            //        .on('error', err => {
+            //            reject(err);
+            //        });
+            //});
         });
-
         return this;
     }
 

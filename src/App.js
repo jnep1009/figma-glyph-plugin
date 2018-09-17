@@ -20,11 +20,10 @@ class App extends Component {
         if (uploadedFile.name.split('.').pop().toLowerCase() !== 'sketch'){
             alert('please upload .sketch file');
         } else {
-            // file reader
-            let reader = new FileReader();
             // sketch read file
             ns.read(uploadedFile).then(sketch => {
-                console.log(sketch.pages[0]);
+                sketch.pages[0].layers[0].name = "No";
+                sketch.save('output.sketch');
             })
         }
     };

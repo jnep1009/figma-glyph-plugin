@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "file-saver": "^1.3.8",
+    "fs": "0.0.1-security",
     "node-sketch": "^0.10.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
